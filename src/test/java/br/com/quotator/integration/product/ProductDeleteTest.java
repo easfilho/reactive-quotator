@@ -16,25 +16,25 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 public class ProductDeleteTest {
 
     @Autowired
-    private MongoOperations operations;
+    private MongoOperations mongoOperations;
 
     @Autowired
     private WebTestClient webClient;
 
     @Before
     public void setUp() {
-        operations.dropCollection(Product.class);
+        mongoOperations.dropCollection(Product.class);
     }
 
     @Test
     public void shouldCreateProduct() {
-        Product product = operations.insert(new Product(null, "Televisão"));
+        Product product = mongoOperations.insert(new Product(null, "Televisão"));
         webClient
                 .delete()
                 .uri("/v1/products/{id}", product.getId())
                 .exchange()
                 .expectStatus()
                 .isOk();
-        Assert.assertNull(operations.findById(product.getId(), Product.class));
+        Assert.assertNull(mongoOperations.findById(product.getId(), Product.class));
     }
 }

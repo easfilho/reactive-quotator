@@ -21,16 +21,16 @@ import java.util.Objects;
 public class ProductListTest {
 
     @Autowired
-    private MongoOperations operations;
+    private MongoOperations mongoOperations;
 
     @Autowired
     private WebTestClient webClient;
 
     @Before
     public void setUp() {
-        operations.dropCollection(Product.class);
-        operations.insert(new Product(null, "Caderno"));
-        operations.insert(new Product(null, "Caneta"));
+        mongoOperations.dropCollection(Product.class);
+        mongoOperations.insert(new Product(null, "Caderno"));
+        mongoOperations.insert(new Product(null, "Caneta"));
     }
 
     @Test

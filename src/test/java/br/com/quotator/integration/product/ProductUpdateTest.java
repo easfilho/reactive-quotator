@@ -19,7 +19,7 @@ import java.util.Objects;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ProductCreateTest {
+public class ProductUpdateTest {
 
     @Autowired
     private MongoOperations mongoOperations;
@@ -34,15 +34,16 @@ public class ProductCreateTest {
 
     @Test
     public void shouldCreateProduct() {
+        Product product = mongoOperations.insert(new Product(null, "Notebuque"));
         ProductInputDto productInputDto = new ProductInputDto("Notebook");
 
         ProductOutputDto result = webClient
-                .post()
-                .uri("/v1/products")
+                .put()
+                .uri("/v1/products/{id}", product.getId())
                 .body(BodyInserters.fromObject(productInputDto))
                 .exchange()
                 .expectStatus()
-                .isCreated()
+                .isOk()
                 .expectBody(ProductOutputDto.class)
                 .returnResult()
                 .getResponseBody();

@@ -3,7 +3,6 @@ package br.com.quotator.api.v1.controller;
 import br.com.quotator.api.v1.dto.ProductInputDto;
 import br.com.quotator.api.v1.dto.ProductOutputDto;
 import br.com.quotator.mapper.ProductMapper;
-import br.com.quotator.model.Product;
 import br.com.quotator.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -49,12 +48,12 @@ public class ProductController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Mono<ProductOutputDto> update(@PathVariable("id") String id, @Valid @RequestBody Mono<Product> product) {
-        return product.flatMap(p -> {
-            p.setId(id);
-            return productService.save(p);
-        }).flatMap(p -> Mono.just(productMapper.map(p)));
-
+    public Mono<ProductOutputDto> update(@PathVariable("id") String id, @Valid @RequestBody Mono<ProductInputDto> productInputDtoMono) {
+        return productInputDtoMono.flatMap(productInputDto -> Mono.just(productMapper.map(productInputDto)))
+                .flatMap(product -> {
+                    product.setId(id);
+                    return productService.save(product);
+                }).flatMap(p -> Mono.just(productMapper.map(p)));
     }
 
     @DeleteMapping("/{id}")
