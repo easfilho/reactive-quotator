@@ -3,7 +3,6 @@ package br.com.quotator.integration.product;
 import br.com.quotator.api.v1.dto.ProductInputDto;
 import br.com.quotator.api.v1.dto.ProductOutputDto;
 import br.com.quotator.model.Product;
-import br.com.quotator.repository.ProductRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Before;
@@ -52,7 +51,7 @@ public class ProductCreateTest {
         Assert.assertTrue(StringUtils.isNotBlank(result.getId()));
 
         Product createdProduct = operations.findById(result.getId(), Product.class);
-        Assert.assertEquals(result.getId(), createdProduct.getId());
+        Assert.assertEquals(result.getId(), Objects.requireNonNull(createdProduct).getId());
         Assert.assertEquals(result.getName(), createdProduct.getName());
     }
 }
