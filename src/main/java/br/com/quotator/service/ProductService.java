@@ -15,8 +15,8 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public Flux<Product> getProducts() {
-        return productRepository.findAll();
+    public Flux<Product> getProducts(String name) {
+        return productRepository.findByNameContainingIgnoringCase(name);
     }
 
     public Mono<Product> save(Product product) {

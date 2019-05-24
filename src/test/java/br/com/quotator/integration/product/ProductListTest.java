@@ -42,9 +42,25 @@ public class ProductListTest {
                 .expectBody(ProductOutputDto[].class)
                 .returnResult();
 
-        boolean resultaValidation = Arrays.stream(Objects.requireNonNull(result.getResponseBody()))
-                .allMatch(productOutputDto -> productOutputDto.getName().equals("Caderno") || productOutputDto.getName().equals("Caneta"));
+        boolean resultValidation = Arrays.stream(Objects.requireNonNull(result.getResponseBody()))
+                .allMatch(productOutputDto -> productOutputDto.getName().equals("Caderno")
+                        || productOutputDto.getName().equals("Caneta"));
 
-        Assert.assertTrue(resultaValidation);
+        Assert.assertTrue(resultValidation);
+    }
+
+    @Test
+    public void shouldListAllImagesFilteringByName() {
+        EntityExchangeResult<ProductOutputDto[]> result = webClient
+                .get().uri("/v1/products?name=can")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(ProductOutputDto[].class)
+                .returnResult();
+
+        boolean resultValidation = Arrays.stream(Objects.requireNonNull(result.getResponseBody()))
+                .allMatch(productOutputDto -> productOutputDto.getName().toLowerCase().contains("can"));
+
+        Assert.assertTrue(resultValidation);
     }
 }
