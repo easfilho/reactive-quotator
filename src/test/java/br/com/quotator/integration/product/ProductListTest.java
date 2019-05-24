@@ -14,6 +14,8 @@ import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 @RunWith(SpringRunner.class)
@@ -34,7 +36,7 @@ public class ProductListTest {
     }
 
     @Test
-    public void shouldListAllImages() {
+    public void shouldListAllProducts() {
         EntityExchangeResult<ProductOutputDto[]> result = webClient
                 .get().uri("/v1/products")
                 .exchange()
@@ -42,15 +44,15 @@ public class ProductListTest {
                 .expectBody(ProductOutputDto[].class)
                 .returnResult();
 
-        boolean resultValidation = Arrays.stream(Objects.requireNonNull(result.getResponseBody()))
-                .allMatch(productOutputDto -> productOutputDto.getName().equals("Caderno")
-                        || productOutputDto.getName().equals("Caneta"));
+        List<String> productNames = Arrays.asList("Caderno", "Caneta");
+
+        boolean resultValidation = isExpectedResult(result, productNames);
 
         Assert.assertTrue(resultValidation);
     }
 
     @Test
-    public void shouldListAllImagesFilteringByName() {
+    public void shouldListAllProductsFilteringByName() {
         EntityExchangeResult<ProductOutputDto[]> result = webClient
                 .get().uri("/v1/products?name=can")
                 .exchange()
@@ -58,9 +60,15 @@ public class ProductListTest {
                 .expectBody(ProductOutputDto[].class)
                 .returnResult();
 
-        boolean resultValidation = Arrays.stream(Objects.requireNonNull(result.getResponseBody()))
-                .allMatch(productOutputDto -> productOutputDto.getName().toLowerCase().contains("can"));
+        List<String> productNames = Collections.singletonList("Caneta");
+
+        boolean resultValidation = isExpectedResult(result, productNames);
 
         Assert.assertTrue(resultValidation);
+    }
+
+    private boolean isExpectedResult(EntityExchangeResult<ProductOutputDto[]> result, List<String> productNames) {
+        return Arrays.stream(Objects.requireNonNull(result.getResponseBody()))
+                .allMatch(productOutputDto -> productNames.contains(productOutputDto.getName()));
     }
 }

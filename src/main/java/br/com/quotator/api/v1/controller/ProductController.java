@@ -34,7 +34,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public Flux<ProductOutputDto> getProducts(@RequestParam(value = "name", required = false, defaultValue = "") String name) {
+    public Flux<ProductOutputDto> list(@RequestParam(value = "name", required = false, defaultValue = "") String name) {
         return productService.getProducts(name)
                 .flatMap(product -> Mono.just(productMapper.map(product)));
     }
@@ -44,7 +44,7 @@ public class ProductController {
     public Mono<ProductOutputDto> create(@Valid @RequestBody Mono<ProductInputDto> productDtoMono) {
         return productDtoMono.flatMap(productInputDto -> Mono.just(productMapper.map(productInputDto)))
                 .flatMap(productService::save)
-                .flatMap(p -> Mono.just(productMapper.map(p)));
+                .flatMap(product -> Mono.just(productMapper.map(product)));
     }
 
     @PutMapping("/{id}")
@@ -54,7 +54,7 @@ public class ProductController {
                 .flatMap(product -> {
                     product.setId(id);
                     return productService.save(product);
-                }).flatMap(p -> Mono.just(productMapper.map(p)));
+                }).flatMap(product -> Mono.just(productMapper.map(product)));
     }
 
     @DeleteMapping("/{id}")
