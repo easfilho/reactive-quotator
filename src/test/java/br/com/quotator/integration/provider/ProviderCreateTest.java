@@ -34,7 +34,7 @@ public class ProviderCreateTest {
     }
 
     @Test
-    public void shouldCreateProvier() {
+    public void shouldCreateProvider() {
         ProviderInputDto providerInputDto = new ProviderInputDto("DELL", "(51) 1234-1234", "email@email.com");
 
         ProviderOutputDto result = webClient
