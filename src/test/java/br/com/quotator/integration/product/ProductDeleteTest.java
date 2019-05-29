@@ -28,7 +28,7 @@ public class ProductDeleteTest {
 
     @Test
     public void shouldCreateProduct() {
-        Product product = mongoOperations.insert(new Product(null, "Televisão"));
+        Product product = mongoOperations.insert(new Product(null, "Televisão", null));
         webClient
                 .delete()
                 .uri("/v1/products/{id}", product.getId())

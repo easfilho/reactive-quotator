@@ -35,8 +35,8 @@ public class ProviderUpdateTest {
 
     @Test
     public void shouldUpdateProvider() {
-        Provider provider = mongoOperations.insert(new Provider("null", "Havaianas", "(51) 1234-1234", "email@email.com"));
-        ProviderInputDto providerInputDto = new ProviderInputDto("Havaianas Atualizado", "(51) 4321-4321", "havaianas@bol.com.br");
+        Provider provider = mongoOperations.insert(new Provider(null, "Havaianas", "(51) 1234-1234", "email@email.com"));
+        ProviderInputDto providerInputDto = new ProviderInputDto(null, "Havaianas Atualizado", "(51) 4321-4321", "havaianas@bol.com.br");
 
         ProviderOutputDto result = webClient
                 .put()
@@ -64,8 +64,8 @@ public class ProviderUpdateTest {
 
     @Test
     public void shouldValidateRequiredName() {
-        Provider provider = mongoOperations.insert(new Provider("null", "Havaianas", "(51) 1234-1234", "email@email.com"));
-        ProviderInputDto providerInputDto = new ProviderInputDto(null, "(51) 4321-4321", "havaianas@bol.com.br");
+        Provider provider = mongoOperations.insert(new Provider(null, "Havaianas", "(51) 1234-1234", "email@email.com"));
+        ProviderInputDto providerInputDto = new ProviderInputDto(null, null, "(51) 4321-4321", "havaianas@bol.com.br");
 
         DefaultError defaultError = webClient
                 .put()
@@ -84,8 +84,8 @@ public class ProviderUpdateTest {
 
     @Test
     public void shouldValidateRequiredPhone() {
-        Provider provider = mongoOperations.insert(new Provider("null", "Havaianas", "(51) 1234-1234", "email@email.com"));
-        ProviderInputDto providerInputDto = new ProviderInputDto("Havainas as legítimas", null, "havaianas@bol.com.br");
+        Provider provider = mongoOperations.insert(new Provider(null, "Havaianas", "(51) 1234-1234", "email@email.com"));
+        ProviderInputDto providerInputDto = new ProviderInputDto(null,"Havainas as legítimas", null, "havaianas@bol.com.br");
 
         DefaultError defaultError = webClient
                 .put()
@@ -104,8 +104,8 @@ public class ProviderUpdateTest {
 
     @Test
     public void shouldValidateInvalidPhone() {
-        Provider provider = mongoOperations.insert(new Provider("null", "Havaianas", "(51) 1234-1234", "email@email.com"));
-        ProviderInputDto providerInputDto = new ProviderInputDto("Havainas as legítimas", "51 12341234", "havaianas@bol.com.br");
+        Provider provider = mongoOperations.insert(new Provider(null, "Havaianas", "(51) 1234-1234", "email@email.com"));
+        ProviderInputDto providerInputDto = new ProviderInputDto(null, "Havainas as legítimas", "51 12341234", "havaianas@bol.com.br");
 
         DefaultError defaultError = webClient
                 .put()
@@ -124,8 +124,8 @@ public class ProviderUpdateTest {
 
     @Test
     public void shouldValidateRequiredEmail() {
-        Provider provider = mongoOperations.insert(new Provider("null", "Havaianas", "(51) 1234-1234", "email@email.com"));
-        ProviderInputDto providerInputDto = new ProviderInputDto("Havainas as legítimas", "(51) 1234-1234", null);
+        Provider provider = mongoOperations.insert(new Provider(null, "Havaianas", "(51) 1234-1234", "email@email.com"));
+        ProviderInputDto providerInputDto = new ProviderInputDto(null, "Havainas as legítimas", "(51) 1234-1234", null);
 
         DefaultError defaultError = webClient
                 .put()
@@ -144,8 +144,8 @@ public class ProviderUpdateTest {
 
     @Test
     public void shouldValidateInvalidEmail() {
-        Provider provider = mongoOperations.insert(new Provider("null", "Havaianas", "(51) 1234-1234", "email@email.com"));
-        ProviderInputDto providerInputDto = new ProviderInputDto("Havainas as legítimas", "(51) 1234-1234", "email");
+        Provider provider = mongoOperations.insert(new Provider(null, "Havaianas", "(51) 1234-1234", "email@email.com"));
+        ProviderInputDto providerInputDto = new ProviderInputDto(null, "Havainas as legítimas", "(51) 1234-1234", "email");
 
         DefaultError defaultError = webClient
                 .put()

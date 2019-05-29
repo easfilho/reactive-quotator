@@ -34,8 +34,8 @@ public class ProductUpdateTest {
 
     @Test
     public void shouldCreateProduct() {
-        Product product = mongoOperations.insert(new Product(null, "Notebuque"));
-        ProductInputDto productInputDto = new ProductInputDto("Notebook");
+        Product product = mongoOperations.insert(new Product(null, "Notebuque", null));
+        ProductInputDto productInputDto = new ProductInputDto("Notebook", null);
 
         ProductOutputDto result = webClient
                 .put()

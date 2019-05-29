@@ -31,8 +31,8 @@ public class ProductListTest {
     @Before
     public void setUp() {
         mongoOperations.dropCollection(Product.class);
-        mongoOperations.insert(new Product(null, "Caderno"));
-        mongoOperations.insert(new Product(null, "Caneta"));
+        mongoOperations.insert(new Product(null, "Caderno", null));
+        mongoOperations.insert(new Product(null, "Caneta", null));
     }
 
     @Test

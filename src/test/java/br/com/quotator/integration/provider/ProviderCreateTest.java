@@ -35,7 +35,7 @@ public class ProviderCreateTest {
 
     @Test
     public void shouldCreateProvider() {
-        ProviderInputDto providerInputDto = new ProviderInputDto("DELL", "(51) 1234-1234", "email@email.com");
+        ProviderInputDto providerInputDto = new ProviderInputDto(null, "DELL", "(51) 1234-1234", "email@email.com");
 
         ProviderOutputDto result = webClient
                 .post()
@@ -63,7 +63,7 @@ public class ProviderCreateTest {
 
     @Test
     public void shouldValidateRequiredName() {
-        ProviderInputDto providerInputDto = new ProviderInputDto(null, "123456789", "email@email.com");
+        ProviderInputDto providerInputDto = new ProviderInputDto(null, null, "123456789", "email@email.com");
 
         DefaultError defaultError = webClient
                 .post()
@@ -83,7 +83,7 @@ public class ProviderCreateTest {
 
     @Test
     public void shouldValidateRequiredPhone() {
-        ProviderInputDto providerInputDto = new ProviderInputDto("Nacional", null, "email@email.com");
+        ProviderInputDto providerInputDto = new ProviderInputDto(null, "Nacional", null, "email@email.com");
 
         DefaultError defaultError = webClient
                 .post()
@@ -103,7 +103,7 @@ public class ProviderCreateTest {
 
     @Test
     public void shouldValidateInvalidPhone() {
-        ProviderInputDto providerInputDto = new ProviderInputDto("Nacional", "51 1234 1234", "email@email.com");
+        ProviderInputDto providerInputDto = new ProviderInputDto(null, "Nacional", "51 1234 1234", "email@email.com");
 
         DefaultError defaultError = webClient
                 .post()
@@ -123,7 +123,7 @@ public class ProviderCreateTest {
 
     @Test
     public void shouldValidateRequiredEmail() {
-        ProviderInputDto providerInputDto = new ProviderInputDto("Nacional", "(51) 1234-1234", null);
+        ProviderInputDto providerInputDto = new ProviderInputDto(null, "Nacional", "(51) 1234-1234", null);
 
         DefaultError defaultError = webClient
                 .post()
@@ -143,7 +143,7 @@ public class ProviderCreateTest {
 
     @Test
     public void shouldValidateInvalidEmail() {
-        ProviderInputDto providerInputDto = new ProviderInputDto("Nacional", "(51) 1234-1234", "email");
+        ProviderInputDto providerInputDto = new ProviderInputDto(null, "Nacional", "(51) 1234-1234", "email");
 
         DefaultError defaultError = webClient
                 .post()
